@@ -1,0 +1,20 @@
+version: "3"
+services:
+  db:
+    image: postgres:11
+    environment:
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - POSTGRES_DB=postgres
+    restart: always
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data
+
+  odoo:
+    image: odoo:13
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    tty: true
+    restart: always
